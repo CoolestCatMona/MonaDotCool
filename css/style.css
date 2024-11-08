@@ -1,0 +1,180 @@
+:root {
+    --color-a: #0B2559;
+    --color-b: #183B59;
+    --color-c: #2A5159;
+    --color-d: #327355;
+    --color-e: #5C8C46;
+
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Menu Container */
+.menu-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    /* Initially hidden */
+    overflow-x: hidden;
+    background-color: var(--color-c);
+    /* Dark blue for the menu */
+    transition: width 0.3s ease;
+    /* Smooth sweeping effect */
+    z-index: 4;
+    /* Ensure it's above other content */
+    box-shadow: 3px 0 10px rgba(0, 0, 0, 0.5);
+    /* Add shadow for depth */
+    border-right: 2px solid var(--color-d);
+    /* Outline on the right side */
+}
+
+/* Menu Items */
+nav {
+    padding: 60px 20px;
+    /* Space at the top and inside */
+}
+
+nav ul {
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+}
+
+nav li {
+    margin: 20px 0;
+    padding: 20px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    /* Separator between items */
+    transform: translateX(-100%);
+    /* Initially hidden off-screen to the left */
+    opacity: 0;
+    /* Start fully transparent */
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+nav li.active {
+    transform: translateX(0);
+    /* Bring back to its normal position */
+    opacity: 1;
+    /* Make fully visible */
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+    display: inline-block;
+    transition: transform 0.2s ease, color 0.2s ease;
+    /* Smooth hover effect */
+}
+
+nav a:hover {
+    transform: scale(1.2);
+    /* Slightly enlarges the text */
+    color: var(--color-e);
+    /* On hover */
+}
+
+/* Toggle Button */
+.menu-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    z-index: 5;
+    /* Above the menu */
+}
+
+.menu-toggle:hover {
+    color: var(--color-e);
+    transform: scale(1.1);
+    /* Indicate interactivity */
+}
+
+.background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-d), var(--color-b));
+    overflow: hidden;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    /* Ensures interaction with text is possible */
+}
+
+#fogCanvas {
+    z-index: 2;
+    /* Should be above the grid */
+    opacity: 0.8;
+    /* Maximum opacity of fog */
+    mask-image: linear-gradient(to top, rgba(0, 0, 0, .9) 10%, rgba(0, 0, 0, 0) 50%);
+    -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, .9) 10%, rgba(0, 0, 0, 0) 50%);
+}
+
+#gridCanvas {
+    z-index: 1;
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0));
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0));
+}
+
+.content {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+    color: white;
+    text-align: center;
+    padding: 50px;
+}
+
+/* Main Content */
+main {
+    flex: 1;
+    position: relative;
+    z-index: 2;
+    /* Ensures main content is above the background */
+    padding: 20px;
+    color: white;
+    text-align: center;
+}
+
+/* Footer */
+footer {
+    color: white;
+    /* Footer text color */
+    text-align: right;
+    padding: 10px;
+    /* Small padding for compact footer */
+    font-size: 0.9rem;
+    /* Small font size */
+    position: relative;
+    /* Ensure it doesn’t overlap content */
+}
+
+
+.content h1 {
+    font-size: 3rem;
+}
+
+.content p {
+    font-size: 1.5rem;
+}
