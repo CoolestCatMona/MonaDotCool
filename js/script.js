@@ -1,175 +1,160 @@
-const canvas = document.getElementById("gridCanvas");
+// Canvas settings
+
+// Retrieve CSS variables from :root
+const rootStyles = getComputedStyle(document.documentElement);
+
+const colorA = rootStyles.getPropertyValue("--color-a").trim();
+const colorB = rootStyles.getPropertyValue("--color-b").trim();
+const colorC = rootStyles.getPropertyValue("--color-c").trim();
+const colorD = rootStyles.getPropertyValue("--color-d").trim();
+const colorE = rootStyles.getPropertyValue("--color-e").trim();
+
+// Grid settings
+const spacing = 30; // Spacing between points
+const pointRadius = 0; // Radius of each point
+
+// Mouse interaction settings
+const maxDist = 50; // Maximum distance for mouse influence
+const maxMoveDistance = 10; // Maximum displacement of points
+const returnSpeed = 0.05; // Speed at which points return to original position
+
+// Styling settings
+const pointColor = "#ffffff"; // Color of the points
+const lineColor = "rgba(255, 255, 255, 0.1)"; // Color of the lines
+const lineWidth = 1; // Width of the lines
+
+// Get the canvas element and its drawing context
+const canvas = document.getElementById("backgroundCanvas");
 const ctx = canvas.getContext("2d");
-const fogCanvas = document.getElementById("fogCanvas");
-const fogCtx = fogCanvas.getContext("2d");
 
-// Variables for fog customization
-const fogSettings = {
-  density: 2, // Fog density (larger = thinner fog)
-  speed: 0.0, // Speed of fog movement
-  opacity: 100, // Opacity of fog (0-255, 255 is fully opaque)
-  noiseScale: 150, // Scale of noise (larger = finer details)
-};
+// Set the canvas size to match the window size
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-// Perlin Noise Parameters
-const noiseData = [];
-const noiseSize = 256;
-
-// Menu Toggles
-const menuContainer = document.querySelector(".menu-container");
-const menuToggle = document.querySelector(".menu-toggle");
-const menuItems = document.querySelectorAll("nav li");
-
-// Set canvas to full-screen
-function resizeCanvas() {
+// Update canvas size on window resize
+window.addEventListener("resize", () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-  fogCanvas.width = window.innerWidth;
-  fogCanvas.height = window.innerHeight;
-}
+  init(); // Re-initialize the points to fill the new size
+});
 
-/**
- * Draws a grid on the canvas.
- * The grid lines are spaced by the specified gridSize.
- * The canvas is cleared before drawing the grid.
- */
-function drawGrid() {
-  const gridSize = 40;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.strokeStyle = "rgba(255, 255, 255, 0.05)";
-  ctx.lineWidth = 1;
+let points = [];
+let cols, rows;
 
-  for (let x = 0; x < canvas.width; x += gridSize) {
-    ctx.beginPath();
-    ctx.moveTo(x, 0);
-    ctx.lineTo(x, canvas.height);
-    ctx.stroke();
+class Point {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.originalX = x; // Store original positions to return to
+    this.originalY = y;
   }
 
-  for (let y = 0; y < canvas.height; y += gridSize) {
+  // Draw the point as a circle
+  draw() {
+    ctx.fillStyle = pointColor;
     ctx.beginPath();
-    ctx.moveTo(0, y);
-    ctx.lineTo(canvas.width, y);
-    ctx.stroke();
+    ctx.arc(this.x, this.y, pointRadius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // Update the point's position based on mouse proximity
+  update(mouse) {
+    // If mouse position is undefined, return to original position
+    if (mouse.x === undefined || mouse.y === undefined) {
+      this.x += (this.originalX - this.x) * returnSpeed;
+      this.y += (this.originalY - this.y) * returnSpeed;
+      return;
+    }
+
+    const dx = mouse.x - this.x;
+    const dy = mouse.y - this.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+
+    if (distance < maxDist) {
+      // Calculate the displacement
+      const angle = Math.atan2(dy, dx);
+      const moveFactor = (maxDist - distance) / maxDist;
+      const moveDistance = moveFactor * maxMoveDistance;
+      this.x -= Math.cos(angle) * moveDistance;
+      this.y -= Math.sin(angle) * moveDistance;
+    } else {
+      // Return to original position
+      this.x += (this.originalX - this.x) * returnSpeed;
+      this.y += (this.originalY - this.y) * returnSpeed;
+    }
   }
 }
 
-// Animate grid (optional for dynamic effect)
+// Initialize the grid of points
+function init() {
+  points = []; // Clear existing points
+  cols = Math.ceil(canvas.width / spacing) + 1;
+  rows = Math.ceil(canvas.height / spacing) + 1;
+
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      points.push(new Point(x * spacing, y * spacing));
+    }
+  }
+}
+
+init();
+
+const mouse = {
+  x: undefined,
+  y: undefined
+};
+
+// Use event.offsetX and event.offsetY to get mouse position relative to the canvas
+canvas.addEventListener("mousemove", event => {
+  mouse.x = event.offsetX;
+  mouse.y = event.offsetY;
+});
+
+// Reset mouse position when it leaves the canvas
+canvas.addEventListener("mouseleave", () => {
+  mouse.x = undefined;
+  mouse.y = undefined;
+});
+
 function animate() {
-  drawGrid();
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Draw lines between neighboring points
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      const i = y * cols + x;
+      const p1 = points[i];
+
+      // Connect to right neighbor
+      if (x < cols - 1) {
+        const p2 = points[i + 1];
+        drawLine(p1, p2);
+      }
+      // Connect to bottom neighbor
+      if (y < rows - 1) {
+        const p3 = points[i + cols];
+        drawLine(p1, p3);
+      }
+    }
+  }
+
+  // Update and draw each point
+  points.forEach(point => {
+    point.update(mouse);
+    point.draw();
+  });
+
   requestAnimationFrame(animate);
 }
 
-/**
- * Generates a 2D array of random noise values (Perlin Noise).
- *
- * This function populates the global `noiseData` array with random values
- * between 0 and 1. The size of the array is determined by the global
- * variable `noiseSize`.
- *
- * @global
- * @function
- */
-function generateNoise() {
-  for (let i = 0; i < noiseSize; i++) {
-    noiseData[i] = [];
-    for (let j = 0; j < noiseSize; j++) {
-      noiseData[i][j] = Math.random();
-    }
-  }
+function drawLine(p1, p2) {
+  ctx.strokeStyle = lineColor;
+  ctx.lineWidth = lineWidth;
+  ctx.beginPath();
+  ctx.moveTo(p1.x, p1.y);
+  ctx.lineTo(p2.x, p2.y);
+  ctx.stroke();
 }
 
-/**
- * Linearly interpolates between two values.
- *
- * @param {number} a - The start value.
- * @param {number} b - The end value.
- * @param {number} t - The interpolation factor, typically between 0 and 1.
- * @returns {number} The interpolated value.
- */
-function lerp(a, b, t) {
-  return a + t * (b - a);
-}
-
-/**
- * Generates a smooth noise value at the given coordinates (x, y).
- *
- * This function uses bilinear interpolation to smooth the noise values
- * from the surrounding grid points.
- *
- * @param {number} x - The x-coordinate.
- * @param {number} y - The y-coordinate.
- * @returns {number} - The smoothed noise value.
- */
-function smoothNoise(x, y) {
-  const x0 = Math.floor(x) % noiseSize;
-  const y0 = Math.floor(y) % noiseSize;
-  const x1 = (x0 + 1) % noiseSize;
-  const y1 = (y0 + 1) % noiseSize;
-
-  const tx = x - Math.floor(x);
-  const ty = y - Math.floor(y);
-
-  const n0 = lerp(noiseData[x0][y0], noiseData[x1][y0], tx);
-  const n1 = lerp(noiseData[x0][y1], noiseData[x1][y1], tx);
-
-  return lerp(n0, n1, ty);
-}
-
-/**
- * Draws animated fog on the canvas.
- *
- * @param {Object} options - The options for drawing fog.
- * @param {number} options.density - The density of the fog.
- * @param {number} options.speed - The speed of the fog animation.
- * @param {number} options.opacity - The opacity of the fog.
- * @param {number} options.noiseScale - The scale of the noise used to generate the fog.
- */
-function drawFog({ density, speed, opacity, noiseScale }) {
-  const imageData = fogCtx.createImageData(fogCanvas.width, fogCanvas.height);
-  const data = imageData.data;
-
-  for (let y = 0; y < fogCanvas.height; y += density) {
-    for (let x = 0; x < fogCanvas.width; x += density) {
-      const value = Math.floor(
-        smoothNoise(x / noiseScale + offset, y / noiseScale) * 255
-      );
-      const index = (y * fogCanvas.width + x) * 4;
-
-      data[index] = value; // Red
-      data[index + 1] = value; // Green
-      data[index + 2] = value; // Blue
-      data[index + 3] = opacity; // Alpha
-    }
-  }
-
-  fogCtx.putImageData(imageData, 0, 0);
-  offset += speed;
-  requestAnimationFrame(() => drawFog({ density, speed, opacity, noiseScale }));
-}
-
-// Toggle menu open and close
-menuToggle.addEventListener("click", () => {
-  if (menuContainer.style.width === "250px") {
-    menuContainer.style.width = "0";
-    menuItems.forEach((item) => {
-      item.classList.remove("active");
-    });
-  } else {
-    menuContainer.style.width = "250px";
-    // Add items one by one with a delay
-    menuItems.forEach((item, index) => {
-      setTimeout(() => {
-        item.classList.add("active");
-      }, index * 100); // Adjust delay (100ms per item)
-    });
-  }
-});
-
-let offset = 0;
-
-resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
 animate();
-generateNoise();
-drawFog(fogSettings);
