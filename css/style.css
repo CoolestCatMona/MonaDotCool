@@ -1,155 +1,153 @@
 :root {
-    --color-a: #0B2559;
-    --color-b: #183B59;
-    --color-c: #2A5159;
-    --color-d: #327355;
-    --color-e: #5C8C46;
-    --warden-green: #1F5336;
-    --warden-blue: #2180C4;
-    --blood-of-our-enemies: #C64042;
-
+  --color-a: #0b2559;
+  --color-b: #183b59;
+  --color-c: #2a5159;
+  --color-d: #327355;
+  --color-e: #5c8c46;
+  --warden-green: #1f5336;
+  --warden-blue: #2180c4;
+  --blood-of-our-enemies: #c64042;
 }
 
 .syne-mono-regular {
-    font-family: "Syne Mono", monospace;
-    font-weight: 400;
-    font-style: normal;
+  font-family: "Syne Mono", monospace;
+  font-weight: 400;
+  font-style: normal;
 }
 
-body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font-family: "Syne Mono", Courier, monospace;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Syne Mono", Courier, monospace;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
 .background {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, var(--warden-green), var(--warden-blue));
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  /* background: linear-gradient(90deg, var(--warden-green), var(--warden-blue)); */
+  background: black;
 }
 
 .content {
-    position: relative;
-    min-height: 100vh;
-    flex: 1;
-    z-index: 1;
-    color: white;
-    text-align: center;
-    padding: 50px;
+  position: relative;
+  min-height: 100vh;
+  flex: 1;
+  z-index: 1;
+  color: white;
+  text-align: center;
+  padding: 50px;
 }
 
 .grid-layout {
-    display: grid;
-    width: 50%;
-    height: 70%;
-    grid-template-areas:
-        '. header'
-        'links content';
-    grid-template-rows: auto 1fr;
-    grid-template-columns: auto 1fr;
-
+  display: grid;
+  width: 50%;
+  height: 70%;
+  grid-template-areas: ". header" "links content";
+  grid-template-rows: auto 1fr;
+  grid-template-columns: auto 1fr;
 }
 
 .links {
-    grid-area: links;
-    padding: 5px;
+  grid-area: links;
+  padding: 5px;
 }
 
 .links img {
-    height: 32px;
-    width: 32px;
+  height: 32px;
+  width: 32px;
 }
 
 .links ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 /* Center Box Container */
 .main {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    aspect-ratio: 3.5 / 4;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 3.5 / 4;
 }
 
 /* header */
 .header {
-    grid-area: header;
-    width: 60%;
-    text-align: left;
-    margin: 0;
-    white-space: nowrap;
-    font-size: clamp(1rem, 2vw, 1.5rem);
+  grid-area: header;
+  width: 60%;
+  text-align: left;
+  margin: 0;
+  white-space: nowrap;
+  font-size: clamp(1rem, 2vw, 1.5rem);
 }
 
 /* Center Box Styling */
 .center-box {
-    grid-area: content;
-    background-color: white;
-    position: relative;
-    min-width: 300px;
-    min-height: 300px;
-    padding: 20px;
-    z-index: 2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  grid-area: content;
+  background-color: white;
+  position: relative;
+  min-width: 300px;
+  min-height: 300px;
+  padding: 20px;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .center-box img {
-    max-width: 95%;
-    max-height: 95%;
-    object-fit: contain;
+  max-width: 95%;
+  max-height: 95%;
+  object-fit: contain;
 }
 
 /* p elements inside of the center box */
 .center-box p {
-    font-size: 1.2rem;
-    color: var(--color-a);
+  font-size: 1.2rem;
+  color: var(--color-a);
 }
 
 /* Bottom Text inside of the center box */
 .bottom-text {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    margin: 0;
-    padding-bottom: 2px;
-    padding-right: 6px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0;
+  padding-bottom: 2px;
+  padding-right: 6px;
 }
 
 p.bottom-text {
-    color: black;
-    font-size: .8rem;
+  color: black;
+  font-size: 0.8rem;
 }
 
 canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 /* Main Content */
 main {
-    flex: 1;
-    position: relative;
-    z-index: 2;
-    padding: 20px;
-    color: white;
-    text-align: center;
+  flex: 1;
+  position: relative;
+  z-index: 2;
+  padding: 20px;
+  color: white;
+  text-align: center;
 }
 
 .content h1 {
-    font-size: 3rem;
+  font-size: 3rem;
 }

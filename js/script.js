@@ -8,6 +8,8 @@ const colorB = rootStyles.getPropertyValue("--color-b").trim();
 const colorC = rootStyles.getPropertyValue("--color-c").trim();
 const colorD = rootStyles.getPropertyValue("--color-d").trim();
 const colorE = rootStyles.getPropertyValue("--color-e").trim();
+const warden_green = rootStyles.getPropertyValue("--warden-green").trim();
+const warden_blue = rootStyles.getPropertyValue("--warden-blue").trim();
 
 // Grid settings
 const gridSettings = {
@@ -25,7 +27,7 @@ const mouseSettings = {
 // Styling settings
 const styleSettings = {
   pointColor: "#ffffff", // Color of the points
-  lineColor: "rgba(255, 255, 255, 0.1)", // Color of the lines
+  lineColor: "rgba(255, 255, 255, 0.5)", // Color of the lines
   lineWidth: 1 // Width of the lines
 };
 
