@@ -10,18 +10,24 @@ const colorD = rootStyles.getPropertyValue("--color-d").trim();
 const colorE = rootStyles.getPropertyValue("--color-e").trim();
 
 // Grid settings
-const spacing = 30; // Spacing between points
-const pointRadius = 0; // Radius of each point
+const gridSettings = {
+  spacing: 40, // Spacing between points
+  pointRadius: 0 // Radius of each point
+};
 
 // Mouse interaction settings
-const maxDist = 50; // Maximum distance for mouse influence
-const maxMoveDistance = 10; // Maximum displacement of points
-const returnSpeed = 0.05; // Speed at which points return to original position
+const mouseSettings = {
+  maxDist: 80, // Maximum distance for mouse influence
+  maxMoveDistance: 5, // Maximum displacement of points
+  returnSpeed: 0.05 // Speed at which points return to original position
+};
 
 // Styling settings
-const pointColor = "#ffffff"; // Color of the points
-const lineColor = "rgba(255, 255, 255, 0.1)"; // Color of the lines
-const lineWidth = 1; // Width of the lines
+const styleSettings = {
+  pointColor: "#ffffff", // Color of the points
+  lineColor: "rgba(255, 255, 255, 0.1)", // Color of the lines
+  lineWidth: 1 // Width of the lines
+};
 
 // Get the canvas element and its drawing context
 const canvas = document.getElementById("backgroundCanvas");
@@ -51,18 +57,25 @@ class Point {
 
   // Draw the point as a circle
   draw() {
-    ctx.fillStyle = pointColor;
+    ctx.fillStyle = styleSettings.pointColor;
     ctx.beginPath();
-    ctx.arc(this.x, this.y, pointRadius, 0, Math.PI * 2);
+    ctx.arc(this.x, this.y, gridSettings.pointRadius, 0, Math.PI * 2);
     ctx.fill();
   }
 
   // Update the point's position based on mouse proximity
   update(mouse) {
     // If mouse position is undefined, return to original position
-    if (mouse.x === undefined || mouse.y === undefined) {
-      this.x += (this.originalX - this.x) * returnSpeed;
-      this.y += (this.originalY - this.y) * returnSpeed;
+    if (
+      mouse.x === undefined ||
+      mouse.y === undefined ||
+      mouse.x < 0 ||
+      mouse.y < 0 ||
+      mouse.x > canvas.width ||
+      mouse.y > canvas.height
+    ) {
+      this.x += (this.originalX - this.x) * mouseSettings.returnSpeed;
+      this.y += (this.originalY - this.y) * mouseSettings.returnSpeed;
       return;
     }
 
@@ -70,17 +83,18 @@ class Point {
     const dy = mouse.y - this.y;
     const distance = Math.sqrt(dx * dx + dy * dy);
 
-    if (distance < maxDist) {
+    if (distance < mouseSettings.maxDist) {
       // Calculate the displacement
       const angle = Math.atan2(dy, dx);
-      const moveFactor = (maxDist - distance) / maxDist;
-      const moveDistance = moveFactor * maxMoveDistance;
+      const moveFactor =
+        (mouseSettings.maxDist - distance) / mouseSettings.maxDist;
+      const moveDistance = moveFactor * mouseSettings.maxMoveDistance;
       this.x -= Math.cos(angle) * moveDistance;
       this.y -= Math.sin(angle) * moveDistance;
     } else {
       // Return to original position
-      this.x += (this.originalX - this.x) * returnSpeed;
-      this.y += (this.originalY - this.y) * returnSpeed;
+      this.x += (this.originalX - this.x) * mouseSettings.returnSpeed;
+      this.y += (this.originalY - this.y) * mouseSettings.returnSpeed;
     }
   }
 }
@@ -88,34 +102,41 @@ class Point {
 // Initialize the grid of points
 function init() {
   points = []; // Clear existing points
-  cols = Math.ceil(canvas.width / spacing) + 1;
-  rows = Math.ceil(canvas.height / spacing) + 1;
+  cols = Math.ceil(canvas.width / gridSettings.spacing) + 1;
+  rows = Math.ceil(canvas.height / gridSettings.spacing) + 1;
 
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
-      points.push(new Point(x * spacing, y * spacing));
+      points.push(
+        new Point(x * gridSettings.spacing, y * gridSettings.spacing)
+      );
     }
   }
 }
 
 init();
 
+/* Mouse Settings */
+
 const mouse = {
   x: undefined,
   y: undefined
 };
 
-// Use event.offsetX and event.offsetY to get mouse position relative to the canvas
-canvas.addEventListener("mousemove", event => {
-  mouse.x = event.offsetX;
-  mouse.y = event.offsetY;
+// Listen for mousemove on the document
+document.addEventListener("mousemove", event => {
+  const rect = canvas.getBoundingClientRect();
+  mouse.x = event.clientX - rect.left;
+  mouse.y = event.clientY - rect.top;
 });
 
-// Reset mouse position when it leaves the canvas
-canvas.addEventListener("mouseleave", () => {
+// Reset mouse position when it leaves the window
+document.addEventListener("mouseleave", () => {
   mouse.x = undefined;
   mouse.y = undefined;
 });
+
+/* Mouse Settings*/
 
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -149,8 +170,8 @@ function animate() {
 }
 
 function drawLine(p1, p2) {
-  ctx.strokeStyle = lineColor;
-  ctx.lineWidth = lineWidth;
+  ctx.strokeStyle = styleSettings.lineColor;
+  ctx.lineWidth = styleSettings.lineWidth;
   ctx.beginPath();
   ctx.moveTo(p1.x, p1.y);
   ctx.lineTo(p2.x, p2.y);
