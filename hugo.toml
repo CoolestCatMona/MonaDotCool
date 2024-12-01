@@ -1,0 +1,5 @@
+baseURL = 'https://mona.cool/'
+languageCode = 'en-us'
+title = 'mona.cool'
+disableKinds = ['taxonomy', 'term']
+theme=""

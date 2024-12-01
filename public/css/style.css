@@ -74,7 +74,7 @@ html {
 }
 
 /* Center Box Container */
-.main {
+.landing {
   display: grid;
   width: 100%;
   height: 100%;

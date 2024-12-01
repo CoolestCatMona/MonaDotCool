@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mona.cool</title>
+    <link>https://mona.cool/</link>
+    <description>Recent content on mona.cool</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 01 Dec 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://mona.cool/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Testing</title>
+      <link>https://mona.cool/blog/firstpost/</link>
+      <pubDate>Sun, 01 Dec 2024 00:00:00 +0000</pubDate>
+      <guid>https://mona.cool/blog/firstpost/</guid>
+      <description>&lt;p&gt;Content of the markdown file should go here :).&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://mona.cool/&#34;&gt;Go to home&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

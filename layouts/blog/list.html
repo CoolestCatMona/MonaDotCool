@@ -1,0 +1,12 @@
+{{ define "main" }}
+<h1>Homepage for Blog</h1>
+Below is a link to each post in the /blog directory
+<ul>
+    {{ range .Pages }}
+    <li>
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a> - {{ .Date.Format
+        "Jan 2, 2006" }}
+    </li>
+    {{ end }}
+</ul>
+{{ end }}
