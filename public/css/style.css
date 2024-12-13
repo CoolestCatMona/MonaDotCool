@@ -37,7 +37,7 @@ html {
   background: black;
 }
 
-.content {
+.page-content {
   position: relative;
   min-height: 100vh;
   flex: 1;
@@ -47,7 +47,7 @@ html {
   padding: 50px;
 }
 
-.grid-layout {
+.center-grid {
   grid-area: center;
   display: grid;
   height: 80%;
@@ -74,7 +74,7 @@ html {
 }
 
 /* Center Box Container */
-.landing {
+.grid-layout {
   display: grid;
   width: 100%;
   height: 100%;
@@ -221,6 +221,26 @@ main {
   text-align: center;
 }
 
-.content h1 {
+.blogpost {
+  background-color: white;
+  color: black;
+  padding: 20px;
+  text-align: left;
+}
+
+#blogpost-title {
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+.blogpost hr {
+  margin-bottom: 15px;
+}
+
+.blogpost time {
+  font-size: .8em;
+}
+
+.page-content h1 {
   font-size: 3rem;
 }
