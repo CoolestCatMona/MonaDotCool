@@ -1,0 +1,51 @@
+{{ define "main" }}
+<link rel="stylesheet" href="/css/gallery.css">
+<h1>Gallery</h1>
+<div class="slider">
+    <!-- Radios for each slide (store "which slide is active") -->
+    <input type="radio" name="slide" id="slide1" checked>
+    <input type="radio" name="slide" id="slide2">
+    <input type="radio" name="slide" id="slide3">
+  
+    <!-- Main slides container -->
+    <div class="slides">
+      <div class="slide" id="s1">
+        <img src="https://via.placeholder.com/800x400/FF5733/FFFFFF?text=Slide+1" alt="Slide 1">
+      </div>
+      <div class="slide" id="s2">
+        <img src="https://via.placeholder.com/800x400/33FF57/FFFFFF?text=Slide+2" alt="Slide 2">
+      </div>
+      <div class="slide" id="s3">
+        <img src="https://via.placeholder.com/800x400/3357FF/FFFFFF?text=Slide+3" alt="Slide 3">
+      </div>
+    </div>
+  
+    <!-- Navigation Arrows -->
+    <div class="nav-buttons">
+      <!-- For Slide 1 (go to Slide 3 or Slide 2) -->
+      <label for="slide3" id="prev1" class="arrow-prev">&#10094;</label>
+      <label for="slide2" id="next1" class="arrow-next">&#10095;</label>
+  
+      <!-- For Slide 2 (go to Slide 1 or Slide 3) -->
+      <label for="slide1" id="prev2" class="arrow-prev">&#10094;</label>
+      <label for="slide3" id="next2" class="arrow-next">&#10095;</label>
+  
+      <!-- For Slide 3 (go to Slide 2 or Slide 1) -->
+      <label for="slide2" id="prev3" class="arrow-prev">&#10094;</label>
+      <label for="slide1" id="next3" class="arrow-next">&#10095;</label>
+    </div>
+  
+    <!-- Thumbnail Navigation -->
+    <div class="thumbnails">
+      <label for="slide1">
+        <img src="https://via.placeholder.com/120x80/FF5733/FFFFFF?text=Slide+1" alt="Thumb 1">
+      </label>
+      <label for="slide2">
+        <img src="https://via.placeholder.com/120x80/33FF57/FFFFFF?text=Slide+2" alt="Thumb 2">
+      </label>
+      <label for="slide3">
+        <img src="https://via.placeholder.com/120x80/3357FF/FFFFFF?text=Slide+3" alt="Thumb 3">
+      </label>
+    </div>
+  </div>
+{{ end }}

@@ -1,0 +1,11 @@
+{{ define "main" }}
+<div class="page-content"> 
+  {{ partial "title.html" . }}
+    {{ partial "gallery.html" . }}
+    {{ with .Content }}
+      <section class="prose">
+        {{ . }}
+      </section>
+    {{ end }}
+  </div>
+{{ end }}
