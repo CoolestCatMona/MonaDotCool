@@ -14,6 +14,8 @@ Links to useful resources
 
 [CSS Units](https://www.geeksforgeeks.org/css-units-em-rem-px-vh-vw/)
 
+[Hugo Theme Gallery](https://github.com/nicokaiser/hugo-theme-gallery/)
+
 Start the server with `hugo server`
 
 Kill the server with `pkill hugo`

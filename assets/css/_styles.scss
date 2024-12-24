@@ -47,8 +47,7 @@ hgroup {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding-right: 1.5rem;
-  padding-bottom: 1.5rem;
+  padding: 1.5rem;
   background-color: white;
   color: black;
   text-align: right;
@@ -88,9 +87,33 @@ hgroup {
   }
 }
 
+#albums {
+  text-align: left;
+}
+
+section.galleries {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 2rem 1.5rem;
+  background-color: white;
+  color: black;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 3rem;
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 section.gallery {
-  padding-right: 0;
-  padding-left: 0;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  padding-bottom: 1rem;
   background-color: white;
 }
 
@@ -175,6 +198,7 @@ section.gallery {
   display: flex;
   flex-direction: column;
   border-radius: 1rem;
+  z-index: 1;
 
   & > figure {
     aspect-ratio: 3/2;
@@ -182,7 +206,8 @@ section.gallery {
     border-radius: 1rem;
   }
 
-  & > img, & figure > img {
+  & > img,
+  & figure > img {
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     border-radius: 1rem;
     aspect-ratio: 3/2;
@@ -191,8 +216,7 @@ section.gallery {
     object-fit: cover;
 
     &:hover {
-      box-shadow:
-        0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
         0 4px 6px -4px rgba(0, 0, 0, 0.1);
     }
   }

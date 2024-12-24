@@ -17,9 +17,16 @@
     </item>
     <item>
       <title>mona.</title>
-      <link>https://mona.cool/gallery/</link>
+      <link>https://mona.cool/gallery/comissions/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://mona.cool/gallery/</guid>
+      <guid>https://mona.cool/gallery/comissions/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>real</title>
+      <link>https://mona.cool/gallery/photography/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://mona.cool/gallery/photography/</guid>
       <description></description>
     </item>
   </channel>

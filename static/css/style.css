@@ -51,26 +51,10 @@ html {
   grid-area: center;
   display: grid;
   height: 80%;
-  grid-template-areas: ". header""links content";
+  grid-template-areas: ". header" ". content";
   grid-template-rows: auto 1fr;
   grid-template-columns: auto 1fr;
   column-gap: 30px;
-}
-
-.links {
-  grid-area: links;
-  padding: 5px;
-}
-
-.links img {
-  height: 32px;
-  width: 32px;
-}
-
-.links ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
 }
 
 /* Center Box Container */
@@ -80,13 +64,12 @@ html {
   height: 100%;
   grid-template-areas:
     ". . . center center center center . . ."
-    ". . . center center center center . right right"
+    ". links . center center center center . right right"
     ". . . center center center center . right right"
     "left left . center center center center . . ."
     ". . . center center center center . . .";
   grid-template-rows: auto;
   grid-template-columns: auto;
-
 }
 
 /* header */
@@ -97,6 +80,18 @@ html {
   margin: 0;
   white-space: nowrap;
   font-size: clamp(1rem, 2vw, 1.5rem);
+}
+
+.link-box {
+  grid-area: links;
+  background-color: white;
+  color: black;
+}
+
+.link-box ul {
+  list-style: none;
+  text-align: left;
+  padding-left: 0.5rem;
 }
 
 .left-box {
@@ -171,8 +166,7 @@ html {
 }
 
 .with-shadow {
-  box-shadow: -10px 10px 0 0 black,
-    -20px 20px 0 0 white;
+  box-shadow: -10px 10px 0 0 black, -20px 20px 0 0 white;
 }
 
 .center-box img {
@@ -238,9 +232,17 @@ main {
 }
 
 .blogpost time {
-  font-size: .8em;
+  font-size: 0.8em;
 }
 
 .page-content h1 {
   font-size: 3rem;
+}
+
+a:hover {
+  color: var(--color-b);
+}
+
+a:visited {
+  color: var(--color-d);
 }

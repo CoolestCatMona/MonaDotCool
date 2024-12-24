@@ -1,0 +1,15 @@
+{{ define "main" }}
+<div class="page-content"> 
+  <hgroup class="with-shadow" id="albums">
+    <h1>{{ .Title }}</h1>
+    {{ with .Params.Description }}
+      <p>{{ . | markdownify }}</p>
+    {{ end }}
+  </hgroup>
+  <section class="galleries with-shadow">
+    {{ range where .Pages "Params.private" "ne" true }}
+      {{ partial "album-card.html" . }}
+    {{ end }}
+  </section>
+</div>
+{{ end }}
