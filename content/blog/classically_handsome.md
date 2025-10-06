@@ -165,7 +165,7 @@ Anyways, I wanted to write about and share _only a few_ of the thoughts and feel
 
 I'm writing this only four months into my journey, and I feel no regrets.
 
-Nothing has really changed _physically_ about me, but I feel like I can finally look at myself in the mirror without feeling weird. I've been feeling _better_, I've been feeling _lucid_.
+Nothing has really changed _physically_ about me, but I feel like I can finally look at myself in the mirror without feeling weird. I've been feeling _better_, I've been feeling _lucid_, overall, I've just been feeling more comfortable in my own skin.
 
 I want to take the time to reflect on all the other ways that I've been feeling awesome and great in a separate dedicated post, if I can.
 
