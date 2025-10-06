@@ -163,9 +163,13 @@ That is to say, on **June 6th of 2025**, I started undergoing hormone replacemen
 
 Anyways, I wanted to write about and share _only a few_ of the thoughts and feelings I had leading up to the decision to start taking hormones. Since then, I've had a lot of time to talk to folks, and I've realized a lot of other _indicators_ that were present.
 
-I'm writing this only four months into my journey, and I feel no regrets. I want to take the time to reflect on how awesome and great I've been feeling in a dedicated post, if I can.
+I'm writing this only four months into my journey, and I feel no regrets.
 
-Thank you for taking the time to read this far. I'm extremely hopeful for what my future holds.
+Nothing has really changed _physically_ about me, but I feel like I can finally look at myself in the mirror without feeling weird. I've been feeling _better_, I've been feeling _lucid_.
+
+I want to take the time to reflect on all the other ways that I've been feeling awesome and great in a separate dedicated post, if I can.
+
+Thank you for taking the time to read this far. I'm thankful for the support, and I'm extremely hopeful for what my future holds.
 
 ---
 
